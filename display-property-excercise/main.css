@@ -1,10 +1,51 @@
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
 main {
 	width: 800px;
 	height: 500px;
+	font-size: 0;
 }
 
 div {
 	display: inline-block;
 	border: 1px solid black;
 }
+
+
+.top {
+	width: 50%;
+	height: 200px;
+}
+
+.bottom {
+	width: 33.33%;
+	height: 300px;
+}
+
+.box1 {
+	background-color: #3D7900;
+}
+
+.box2 {
+	background-color: #0048FB;
+}
+
+.box3 {
+	background-color: #808080;
+}
+
+.box4 {
+	background-color: black;
+}
+
+.box5 {
+	background-color: #F3A633;
+}
+
 
