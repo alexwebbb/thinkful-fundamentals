@@ -1,0 +1,10 @@
+main {
+	width: 800px;
+	height: 500px;
+}
+
+div {
+	display: inline-block;
+	border: 1px solid black;
+}
+
