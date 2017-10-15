@@ -62,12 +62,10 @@ involved using a div for the box and a different sized div
 for the images, and maneuvering the divs with the position value
 */
 
-main {
-  padding-top: 90px;
-}
-
-
 body {
+
+	padding-top: 90px;
+
 	background: url(https://tf-assets-prod.s3.amazonaws.com/tf-curric/WEB-DEV-001/2.4.3_the_position_property/outerspace_landscape.jpeg) no-repeat;
 	background-size: cover;
 }
