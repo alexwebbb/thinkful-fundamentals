@@ -9,11 +9,23 @@ a {
 
 /** your styles go here **/
 
+
+/*
+nav section 
+
+I was mostly able to get this part done 
+within the time limit. The list style thing really threw 
+me off, couldnt figure out why it wasn't centering. 
+*/
+
 nav {
 	position: fixed;
 	top: 0;
 	width: 100%;
 	height: 60px;
+
+	padding: 0 60px;
+	background-color: grey;
 }
 
 nav ul {
@@ -34,6 +46,51 @@ nav img {
 	vertical-align: middle;
 }
 
-li::after {
+li:not(:last-child)::after {
 	content: " |";
+}
+
+
+/*
+Main Layout section
+
+It seems obvious in retrospect but I did not grasp that we would 
+be positioning the cat and dog pics using the position: absolute; 
+value. The only thing I immediately understood here was the 
+'background-size: cover' attribute. My initial solution
+involved using a div for the box and a different sized div 
+for the images, and maneuvering the divs with the position value
+*/
+
+main {
+  padding-top: 90px;
+}
+
+
+body {
+	background: url(https://tf-assets-prod.s3.amazonaws.com/tf-curric/WEB-DEV-001/2.4.3_the_position_property/outerspace_landscape.jpeg) no-repeat;
+	background-size: cover;
+}
+
+.box {
+	position: relative;
+	margin: 150px auto 0 auto;
+	height: 300px;
+	width: 600px;
+	border: 10px dashed green;
+}
+
+.cat, .dog {
+  position: absolute;
+  width: 200px;
+}
+
+.cat {
+  top: -90px;
+  left: -90px;
+}
+
+.dog {
+  bottom: -120px;
+  right: -60px;
 }
