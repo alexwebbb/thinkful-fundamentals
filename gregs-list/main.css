@@ -1,0 +1,162 @@
+html {
+	box-sizing: border-box;
+	font-size: 0;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+} 
+
+a,
+a:link,
+a:visited,
+a:active {
+	text-decoration: none;
+}
+
+a:visited {
+	color: purple;
+}
+
+a:active {
+	color: pink;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+
+h1 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: lighter;
+	font-size: 18px;
+}
+
+p, time, label, button {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 15px;
+}
+
+.top-nav {
+	background-color: #EEEEEE;
+	top: 0;
+	height: 45px;
+	width: 100%;
+	border-bottom: 1px solid #DDDDDD;
+	vertical-align: middle;
+}
+
+.top-nav h1 {
+	margin-left: 15px;
+}
+
+.top-nav ul {
+	list-style: none;
+}
+
+.top-nav h1, .top-nav a {
+	font-size: 18px;
+}
+
+.top-nav h1, ul {
+	margin-top: 10px;
+}
+
+.top-nav h1, .top-nav ul, .top-nav li {
+	display: inline-block;
+}
+
+.top-nav ul, .top-nav li {
+	float: right;
+	margin-right: 15px;
+}
+
+.search-banner {
+	margin-top: 35px;
+	margin-left: 80px;	
+}
+
+.search-banner label {
+	display: block;
+}
+
+
+.search-banner input {
+	border: 1px solid #DDDDDD;
+	font-size: 16px;
+	border-radius: 2px;
+}
+/*
+*/
+.search-banner input[type="search"] {
+	width: 400px;
+	margin-right: 5px;
+}
+
+.search-banner input[type="image"] {
+	width: 30px;
+}
+
+.search-banner label, .search-banner input {
+	height: 30px;
+	vertical-align: middle;
+}
+
+main {
+	margin-top: 35px;
+	margin-left: 80px;
+}
+
+.page-nav {
+	display: inline-block;
+	margin-bottom: 35px;
+	border: 1px solid #DDDDDD;
+	border-radius: 2px;
+}
+
+.page-nav button {
+	width: 90px;
+	border: none;
+
+	background: white;
+	transition: background 2s;
+}
+
+.page-nav button:hover {
+	background: #f92f2f;
+}
+
+.page-nav label {
+	width: 160px;
+	padding-top: 7px;
+	border-left: 1px solid #DDDDDD;
+	border-right: 1px solid #DDDDDD;
+}
+
+.page-nav button, .page-nav label {
+	display:  inline-block;
+	height: 35px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+
+article{
+	margin-top: 10px
+	height: 35px;
+}
+
+article h1 {
+	font-weight: bold;
+}
+
+article time, article h2 {
+	color: #999999;
+}
+
+article time, article h1, article h2 {
+	display:  inline-block;
+	font-size: 16px;
+	margin-right: 10px
+}

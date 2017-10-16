@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" name="description" content="Greg's list is the number one website on the interne t for searching for senior python cofounders. There is other junk too, do not worry.">
-	<title>Greg's List - Search</title>
+	<meta charset="UTF-8" name="description" content="Greg's list is the number one website on the interne t for searching for senior python cofounders. No other website can meet your python cofounder needs, I promise">
+	<title>Greg's List | Search</title>
+
+	<!-- fonts  -->
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet"> 
+
+  	<!-- reset -->
+  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+
+  	<!-- styles -->
+  	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-	<nav role="navigation">
+	<nav class="top-nav" role="navigation">
 		<h1>Greg's List</h1>
 		<ul>
-			<li><a href="">Post</a></li>
+			<!-- This list will appear backwards due to float -->
 			<li><a href="">Account</a></li>
+			<li><a href="">Post</a></li>
 		</ul>
 	</nav>
 	<!-- Should this header be here? or should the form be there by itself? -->
 	<header role="banner">
-		<form action="" method="post" role="search">
+		<form class="search-banner" action="" method="post" role="search">
 				<label for="search-field">Search jobs</label>
 				<input type="search" name="search-field" id="search-field" placeholder="Cofounder, patissier, shillelagh...">
 				<input type="image" src="https://tf-assets-prod.s3.amazonaws.com/tf-curric/WEB-DEV-001/2.4.6_challenge_design_to_code/magnifying-glass.png" alt="Search button"
@@ -22,7 +32,7 @@
 		</form>
 	</header>
 	<main role="main">
-		<nav role="navigation">
+		<nav class="page-nav" role="navigation">
 			<button type="button" name="prev">< prev</button>
 			<label>1 to 100 of 179</label>
 			<button type="button" name="next">next ></button>
