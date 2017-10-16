@@ -5,18 +5,49 @@
 	<title>Greg's List - Search</title>
 </head>
 <body>
-	<nav>
+	<nav role="navigation">
 		<h1>Greg's List</h1>
 		<ul>
 			<li><a href="">Post</a></li>
 			<li><a href="">Account</a></li>
 		</ul>
 	</nav>
-	<header>
-		<label for="search-field"></label>
-		<input type="search" name="search-field" id="search-field">
-		<input type="image" src="https://tf-assets-prod.s3.amazonaws.com/tf-curric/WEB-DEV-001/2.4.6_challenge_design_to_code/magnifying-glass.png" alt="Search button"
-		id="search-field">
+	<header role="banner">
+		<form action="" method="post" role="search">
+				<label for="search-field">Search jobs</label>
+				<input type="search" name="search-field" id="search-field" placeholder="Cofounder, patissier, shillelagh...">
+				<input type="image" src="https://tf-assets-prod.s3.amazonaws.com/tf-curric/WEB-DEV-001/2.4.6_challenge_design_to_code/magnifying-glass.png" alt="Search button"
+				id="search-field">
+		</form>
 	</header>
+	<main role="main">
+		<nav role="navigation">
+			<button type="button" name="prev">< prev</button>
+			<label>1 to 100 of 179</label>
+			<button type="button" name="next">next ></button>
+		</nav>
+		<article>
+			<time datetime="2017-06-22">June 22</time>
+			<h1>
+				<a href="">Technical Project Manager</a>
+			</h1>
+			<h2>Midtown East</h2>
+		</article>
+		<article>
+			<time datetime="2017-06-21">June 21</time>
+			<h1>
+				<a href="">Frontend Developer</a>
+			</h1>
+			<h2>SoHo</h2>
+		</article>
+		<article>
+			<time datetime="2017-06-20">June 20</time>
+			<h1>
+				<a href="">Senior Python Developer / Cofounder</a>
+			</h1>
+			<h2>Flatiron</h2>
+		</article>
+
+	</main>
 </body>
 </html>
