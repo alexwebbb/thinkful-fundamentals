@@ -1,0 +1,99 @@
+html {
+	box-sizing: border-box;
+	font-size: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+a,
+a:link,
+a:active,
+a:hover {
+	color: white;
+}
+
+body {
+	background-color: #3F94E7;
+	text-align: center;
+}
+
+img {
+	margin-top: 40px;
+	height: 35px;
+}
+
+form {
+	display: inline-block;
+	margin-top: 30px;
+}
+
+fieldset {
+	display: block;
+	width: 400px;
+	height: 472px;
+	padding: 0 40px;
+
+	background-color: white;
+	border: 1px solid #DDDDDD;
+	border-radius: 3px;
+}
+
+h1 {
+	text-align: center;
+	font-size: 32px;
+	font-weight: lighter;
+	color: #565656;
+	margin-top: 35px;
+}
+
+label {
+	text-align: left;
+}
+
+input {
+	margin-left: 0;
+	text-indent: 15px;
+}
+
+input::placeholder {
+	color: #A9A9A9;
+	font-weight: bold;
+}
+
+button {
+	margin-top: 15px;
+	background-color: #65C470;
+	color: white;
+	font-weight: bold;
+
+	transition: background-color 2s;
+}
+
+button:hover {
+	background-color: #1a681a;
+}
+
+input, button {
+	border: 2px solid #DDDDDD;
+	border-radius: 3px;
+}
+
+input, label {
+	display: block;
+}
+
+input, label, button {
+	width: 320px;
+	height: 55px;
+	padding: 15px 0;
+	font-size: 16px;
+}
+
+p {
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+}

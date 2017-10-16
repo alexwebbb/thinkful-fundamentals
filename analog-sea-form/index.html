@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8" name="description" content="Login page for cool company Analog Sea, a cool startup.">
 	<title>AnalogSea | Signup Form</title>
+
+	<!-- fonts  -->
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
 
 	<link rel="stylesheet" href="index.css">
 </head>
 <body>
 	<header role="navigation">
-		<img src="" alt="Analog Sea Logo" class="logo">
+		<img src="https://tf-assets-prod.s3.amazonaws.com/tf-curric/WEB-DEV-001/2.5.2_challenge_signup_form/logo.png" alt="Analog Sea Logo" class="logo">
 	</header>
 	<main>
-		<form action="">
+		<form action="/signup/" method="post">
 			<fieldset>
-				<legend></legend>
-				<label for=""></label>
-				<input type="text">
-				<label for=""></label>
-				<input type="text">
-				<button></button>
+				<h1>Sign Up</h1>
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email" placeholder="foo@bar.com" required>
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password" placeholder="1234passw0rd" required>
+				<button type="submit">Sign Up</button>
 			</fieldset>
 		</form>
+		<p>Already have an account? <a href="/login">Log in</a></p>
 	</main>
 </body>
 </html>
