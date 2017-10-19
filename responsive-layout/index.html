@@ -13,13 +13,82 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="grid.css">
+
   <!-- Stylesheets -->
   <!-- You can add new files using the icon above Line 1, to the left of the index.html tab -->
   
 </head>
 <body>
-
-  (header>(h1{Star Wars Characters}+h2{Incomplete List}))+(div.row>(figure.col-4>(img+figcaption>(h1+h2)))*3)*2
-
+  <header role="banner">
+    <div class="row">
+      <div class="col-12">
+        <h1>Star Wars Characters</h1>
+        <h2>Incomplete List</h2>
+      </div>
+    </div>
+  </header>
+  <main role="main">
+    <div class="row">
+      
+      <div class="col-4">
+        <figure>
+          <img src="https://thinkful-ed.github.io/star-wars-responsive-challenge/images/rey_square.png" alt="The Protagonist, Rey">
+          <figcaption>
+            <h1>Rey</h1>
+            <h2>Protagonist, from Tatooine</h2>
+          </figcaption>
+        </figure>
+      </div>  
+      <div class="col-4">
+        <figure>
+          <img src="https://thinkful-ed.github.io/star-wars-responsive-challenge/images/finn_square.png" alt="Finn, a cool dude">
+          <figcaption>
+            <h1>Finn</h1>
+            <h2>Storm Trooper, befriends Rey</h2>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="col-4">
+        <figure>
+          <img src="https://thinkful-ed.github.io/star-wars-responsive-challenge/images/kylo_square.png" alt="Kind of a douche, Kylo">
+          <figcaption>
+            <h1>Kylo</h1>
+            <h2>Main villain, or is he?</h2>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <figure>
+          <img src="https://thinkful-ed.github.io/star-wars-responsive-challenge/images/poe_square.png" alt="Poe, he lets Finn wear his jacket">
+          <figcaption>
+            <h1>Poe</h1>
+            <h2>Neutral Pilot</h2>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="col-4">
+        <figure>
+          <img src="https://thinkful-ed.github.io/star-wars-responsive-challenge/images/chewbacca_square.png" alt="Chewbacca, you know, from the christmas special">
+          <figcaption>
+            <h1>Chewbacca</h1>
+            <h2>A great first mate</h2>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="col-4">
+        <figure>
+          <img src="https://thinkful-ed.github.io/star-wars-responsive-challenge/images/yoda_square.png" alt="Yoda, doesn't look good in 3d, also not in this movie">
+          <figcaption>
+            <h1>Yoda</h1>
+            <h2>Wise Old Jedi Master</h2>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
