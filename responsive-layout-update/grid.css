@@ -1,0 +1,102 @@
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+/* Grid measurements:
+ *
+ *   Responsive layout
+
+The math of the layout is as follows
+
+12 * 6.25 = 75
+100 - 75 = 25
+25 / 12 = 2.0833
+2.0833 / 2 = 1.0417
+
+12 is the number of rows
+6.25 is the row width in percentage
+75 is the percent of the total width that the row width accounts for
+25 is the remaining percent that will be the padding
+2.0833 is the padding between any two consecutive rows or the total padding on both sides of a row, and
+1.0417 is half of that, i.e. the amount of padding 
+
+Row width is arbitrary, as long as 
+
+R = number of rows
+P = row width
+T = total width
+
+R * P < T
+
+You can calculate padding width by simply solving 
+
+X = 100 - ( P / T ) * R
+
+X = padding width, or "Half a Gutter"
+
+ *
+ **/
+.row {
+  max-width: 1000px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
+}
+
+/* Clearfix */
+.row::before,
+.row::after {
+  display: table;
+  content: '';
+}
+
+.row::after {
+  clear: both;
+}
+
+.col-3, .col-4, .col-6, .col-12 {
+  float: left;
+
+  /* Gutters:
+   * Each column is padded by half-a-gutter on each side,
+   *
+   * Half a gutter is 10px, 10/960 (context) = 1.041666%
+   *
+   */
+  padding-left: 1.04166666%;
+  padding-right: 1.04166666%;
+}
+
+/* Mobile defaults */
+.col-3, .col-4, .col-6, .col-12 {
+  width: 100%;
+}
+
+
+/* Non-mobile, grid */
+@media only screen and (min-width: 640px) {
+  /* 3 columns, 3/12 in % */
+  .col-3 {
+    width: 25%;
+  }
+
+  /* 4 columns */
+  .col-4 {
+    width: 33.33%;
+  }
+
+  /* 6 columns */
+  .col-6 {
+    width: 50%;
+
+  }
+
+  /* 12 columns */
+  .col-12 {
+    width: 100%;
+  }
+}
