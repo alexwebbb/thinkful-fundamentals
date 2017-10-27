@@ -22,7 +22,7 @@ const myCoolFunction = () => {
     }
 
     // event listeners
-    $('#js-shopping-list-form').on('submit', function(event) {
+    $('#js-shopping-list-form').submit(function(event) {
         event.preventDefault();
         const field = $(this).find('.js-shopping-list-entry');
         if (field.val() != false) {
@@ -31,9 +31,14 @@ const myCoolFunction = () => {
         }
     });
 
-    $('.shopping-item-toggle')
+    $('.shopping-list').on('click', '.shopping-item-toggle', function() {
+        $(this).closest('li').find('.shopping-item')
+            .toggleClass('shopping-item__checked');
+    });
 
-
+    $('.shopping-list').on('click', '.shopping-item-delete', function() {
+        $(this).closest('li').remove();
+    });
 }
 
 $(myCoolFunction);
