@@ -2,6 +2,15 @@
 // starting repl.it and implemented everything on my own without 
 // reading the articles.... I will now read the articles
 
+// I see the main difference between what I did is that they are
+// using alternate 'js' versions of the classes, which I get, and
+// the use of data-item-index attribute in the html, which I think 
+// is bizarre, since the whole point of this exercise is take the
+// state out of the DOM. Like, if you really want to store the 
+// index value, just create an id in STORE, or by using the loop 
+// index. Traversing the dom has GOT to be slower than simply 
+// using the built in index of the array methods, or an index
+// in the json.
 
 const STORE = [
   {name: "apples", checked: false},
