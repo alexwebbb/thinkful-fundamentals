@@ -29,7 +29,6 @@ function renderShoppingList() {
   }
   
   $('.js-shopping-list').html(list);
-  
 }
 
 
@@ -53,8 +52,6 @@ function handleNewItemSubmit() {
     
     renderShoppingList();  
   });
-  
-  
 }
 
 
@@ -70,7 +67,6 @@ function handleItemCheckClicked() {
       obj => obj.name === field.text() ? obj.checked = !obj.checked : ''
     );
   
-    
     renderShoppingList();  
   });
 }
@@ -86,14 +82,11 @@ function handleDeleteItemClicked() {
     let field = $(this).closest('li').find('.shopping-item');
     
     STORE.forEach(
-      obj => obj.name === field.text() ? STORE.splice(obj.indexOf, 1) : ''
+      (obj, i) => obj.name === field.text() ? STORE.splice(i, 1) : ''
     );
   
-    
     renderShoppingList();  
   });
-  
-  console.log('`handleDeleteItemClicked` ran')
 }
 
 function handleShoppingList() {
