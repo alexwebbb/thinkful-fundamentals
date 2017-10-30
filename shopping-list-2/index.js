@@ -1,3 +1,8 @@
+// sorry... I was getting tired of reading, and just took the 
+// starting repl.it and implemented everything on my own without 
+// reading the articles.... I will now read the articles
+
+
 const STORE = [
   {name: "apples", checked: false},
   {name: "oranges", checked: false},
