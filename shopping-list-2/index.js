@@ -7,7 +7,29 @@ const STORE = [
 
 function renderShoppingList() {
   // render the shopping list in the DOM
-  console.log(STORE);
+  
+  let list = [];
+  
+  for(let item in STORE) {
+    list.push(
+      $(`<li>
+            <span class="shopping-item 
+            ${STORE[item].checked ? 'shopping-item__checked': ''}
+            ">${STORE[item].name}</span>
+            <div class="shopping-item-controls">
+              <button class="shopping-item-toggle">
+                <span class="button-label">check</span>
+              </button>
+              <button class="shopping-item-delete">
+                <span class="button-label">delete</span>
+              </button>
+            </div>
+        </li>`)
+      );
+  }
+  
+  $('.js-shopping-list').html(list);
+  
 }
 
 
@@ -27,14 +49,12 @@ function handleNewItemSubmit() {
           checked: false
         });
       field.val('');
-      
-      console.log('submit clicked');
     }
     
+    renderShoppingList();  
   });
   
-  renderShoppingList();
-  console.log(`handleNewItemSubmit ran`);
+  
 }
 
 
