@@ -61,13 +61,38 @@ function handleNewItemSubmit() {
 function handleItemCheckClicked() {
   // listen for users checking/unchecking list items, and
   // render them checked/unchecked accordingly
-  console.log('`handleItemCheckClicked` ran');
+  
+  $('.shopping-list').on('click', '.shopping-item-toggle', function() {
+    
+    let field = $(this).closest('li').find('.shopping-item');
+    
+    STORE.forEach(
+      obj => obj.name === field.text() ? obj.checked = !obj.checked : ''
+    );
+  
+    
+    renderShoppingList();  
+  });
 }
 
 
 function handleDeleteItemClicked() {
   // Listen for when users want to delete an item and 
   // delete it
+  
+  
+  $('.shopping-list').on('click', '.shopping-item-delete', function() {
+    
+    let field = $(this).closest('li').find('.shopping-item');
+    
+    STORE.forEach(
+      obj => obj.name === field.text() ? STORE.splice(obj.indexOf, 1) : ''
+    );
+  
+    
+    renderShoppingList();  
+  });
+  
   console.log('`handleDeleteItemClicked` ran')
 }
 
