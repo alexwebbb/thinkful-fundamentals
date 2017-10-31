@@ -1,16 +1,5 @@
-// sorry... I was getting tired of reading, and just took the 
-// starting repl.it and implemented everything on my own without 
-// reading the articles.... I will now read the articles
+// refactor of my original take on shopping list 2
 
-// I see the main difference between what I did is that they are
-// using alternate 'js' versions of the classes, which I get, and
-// the use of data-item-index attribute in the html, which I think 
-// is bizarre, since the whole point of this exercise is take the
-// state out of the DOM. Like, if you really want to store the 
-// index value, just create an id in STORE, or by using the loop 
-// index. Traversing the dom has GOT to be slower than simply 
-// using the built in index of the array methods, or an index
-// in the json.
 
 const STORE = [
   {ID: 0, name: "apples", checked: false},
@@ -20,11 +9,34 @@ const STORE = [
 ];
 
 
-
-function _getIndex ( that ) {
-  return $(that).closest('.js-item-index-element').attr('data-item-index');
+// returns an object
+function _getItem ( that ) {
+  
+  let ID =  parseInt($(that).closest('.js-item-ID-element').attr('data-item-ID'));
+  
+  return STORE.find(obj => obj.ID === ID);
 }
 
+// void return
+function _addItem ( that ) {
+  
+  let field = $(that).find('.js-shopping-list-entry');
+    
+  if(/([A-z])\w/.test(field.val())) {
+    STORE.push(
+      {
+        // ensures an original ID no matter what, as long as order isnt changed
+        ID: ++STORE[STORE.length - 1].ID,
+        name: field.val(), 
+        checked: false
+      });
+    field.val('');
+  }
+
+  return field;
+}
+
+// void return
 function renderShoppingList() {
   // render the shopping list in the DOM
   
@@ -32,15 +44,15 @@ function renderShoppingList() {
   
   for(let item in STORE) {
     list.push(
-      $(`<li class="js-item-index-element" data-item-index="${STORE[item].ID}">
+      $(`<li class="js-item-ID-element" data-item-ID="${STORE[item].ID}">
             <span class="shopping-item
             ${STORE[item].checked ? 'shopping-item__checked': ''}
             ">${STORE[item].name}</span>
             <div class="shopping-item-controls">
-              <button class="shopping-item-toggle">
+              <button class="shopping-item-toggle js-item-toggle">
                 <span class="button-label">check</span>
               </button>
-              <button class="shopping-item-delete">
+              <button class="shopping-item-delete js-item-delete">
                 <span class="button-label">delete</span>
               </button>
             </div>
@@ -51,61 +63,53 @@ function renderShoppingList() {
   $('.js-shopping-list').html(list);
 }
 
-
+// void return
 function handleNewItemSubmit() {
   // listen for users adding a new shopping list item, then add
   // to list and render list 
   
   $('#js-shopping-list-form').submit(function(event) {
+    
     event.preventDefault();
     
-    let field = $(this).find('.js-shopping-list-entry');
-    
-    if(/([A-z])\w/.test(field.val())) {
-      STORE.push(
-        {
-          ID: STORE.length,
-          name: field.val(), 
-          checked: false
-        });
-      field.val('');
-    }
+    _addItem(this);
     
     renderShoppingList();  
   });
 }
 
-
+// void return
 function handleItemCheckClicked() {
   // listen for users checking/unchecking list items, and
   // render them checked/unchecked accordingly
   
-  $('.shopping-list').on('click', '.shopping-item-toggle', function() {
+  $('.js-shopping-list').on('click', '.js-item-toggle', function() {
     
-    let index = _getIndex(this);
+    let item = _getItem(this);
     
-    STORE[index].checked = !STORE[index].checked;
+    item.checked = !item.checked;
   
     renderShoppingList();  
   });
 }
 
-
+// void return
 function handleDeleteItemClicked() {
   // Listen for when users want to delete an item and 
   // delete it
   
   
-  $('.shopping-list').on('click', '.shopping-item-delete', function() {
+  $('.js-shopping-list').on('click', '.js-item-delete', function() {
     
-    let index = _getIndex(this);
-    
-    STORE.splice(STORE.attr('ID', index).indexOf, 1);
+    let item = _getItem(this);
+
+    STORE.splice(STORE.indexOf(item), 1);
     
     renderShoppingList();  
   });
 }
 
+// void return
 function handleShoppingList() {
   renderShoppingList();
   handleNewItemSubmit();
