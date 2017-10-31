@@ -19,6 +19,12 @@ const STORE = [
   {ID: 3, name: "bread", checked: false}
 ];
 
+
+
+function _getIndex ( that ) {
+  return $(that).closest('.js-item-index-element').attr('data-item-index');
+}
+
 function renderShoppingList() {
   // render the shopping list in the DOM
   
@@ -76,9 +82,9 @@ function handleItemCheckClicked() {
   
   $('.shopping-list').on('click', '.shopping-item-toggle', function() {
     
-    let field = $(this).closest('.js-item-index-element').attr('data-item-index');
+    let index = _getIndex(this);
     
-    STORE[field].checked = !STORE[field].checked;
+    STORE[index].checked = !STORE[index].checked;
   
     renderShoppingList();  
   });
@@ -92,12 +98,10 @@ function handleDeleteItemClicked() {
   
   $('.shopping-list').on('click', '.shopping-item-delete', function() {
     
-    let field = $(this).closest('li').find('.shopping-item');
+    let index = _getIndex(this);
     
-    STORE.forEach(
-      (obj, i) => obj.name === field.text() ? STORE.splice(i, 1) : ''
-    );
-  
+    STORE.splice(STORE.attr('ID', index).indexOf, 1);
+    
     renderShoppingList();  
   });
 }
