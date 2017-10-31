@@ -30,7 +30,7 @@ function _addItem ( that ) {
       {
         // ensures an original ID no matter what, 
         // as long as order isnt changed
-        ID: ++STORE[STORE.length - 1].ID,
+        ID: STORE[STORE.length - 1].ID + 1,
         name: field.val(), 
         checked: false
       });
@@ -46,14 +46,20 @@ function _addItem ( that ) {
 function renderShoppingList() {
   // render the shopping list in the DOM
   
+  // may change 'items' to parameter if it is 
+  // necessary to generalize this function
+  let items = STORE;
+  
   let list = [];
   
-  for(let item in STORE) {
+  
+  
+  for(let i = 0; i < items.length; i++) {
     list.push(
-      $(`<li class="js-item-ID-element" data-item-ID="${STORE[item].ID}">
+      $(`<li class="js-item-ID-element" data-item-ID="${items[i].ID}">
             <span class="shopping-item
-            ${STORE[item].checked ? 'shopping-item__checked': ''}
-            ">${STORE[item].name}</span>
+            ${items[i].checked ? 'shopping-item__checked': ''}
+            ">${items[i].name}</span>
             <div class="shopping-item-controls">
               <button class="shopping-item-toggle js-item-toggle">
                 <span class="button-label">check</span>
