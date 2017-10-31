@@ -13,10 +13,10 @@
 // in the json.
 
 const STORE = [
-  {name: "apples", checked: false},
-  {name: "oranges", checked: false},
-  {name: "milk", checked: true},
-  {name: "bread", checked: false}
+  {ID: 0, name: "apples", checked: false},
+  {ID: 1, name: "oranges", checked: false},
+  {ID: 2, name: "milk", checked: true},
+  {ID: 3, name: "bread", checked: false}
 ];
 
 function renderShoppingList() {
@@ -26,8 +26,8 @@ function renderShoppingList() {
   
   for(let item in STORE) {
     list.push(
-      $(`<li>
-            <span class="shopping-item 
+      $(`<li class="js-item-index-element" data-item-index="${STORE[item].ID}">
+            <span class="shopping-item
             ${STORE[item].checked ? 'shopping-item__checked': ''}
             ">${STORE[item].name}</span>
             <div class="shopping-item-controls">
@@ -58,6 +58,7 @@ function handleNewItemSubmit() {
     if(/([A-z])\w/.test(field.val())) {
       STORE.push(
         {
+          ID: STORE.length,
           name: field.val(), 
           checked: false
         });
@@ -75,11 +76,9 @@ function handleItemCheckClicked() {
   
   $('.shopping-list').on('click', '.shopping-item-toggle', function() {
     
-    let field = $(this).closest('li').find('.shopping-item');
+    let field = $(this).closest('.js-item-index-element').attr('data-item-index');
     
-    STORE.forEach(
-      obj => obj.name === field.text() ? obj.checked = !obj.checked : ''
-    );
+    STORE[field].checked = !STORE[field].checked;
   
     renderShoppingList();  
   });
