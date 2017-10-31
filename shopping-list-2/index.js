@@ -127,6 +127,7 @@ function handleShoppingList() {
   handleDeleteItemClicked();
   
   // C convention... a program in C returns 0
+  // alternatively, could make it return true
   return 0;
 }
 
