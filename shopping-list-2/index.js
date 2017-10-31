@@ -1,5 +1,6 @@
 // refactor of my original take on shopping list 2
 
+// I follow convention of declaring return type in comment preceding function
 
 const STORE = [
   {ID: 0, name: "apples", checked: false},
@@ -12,12 +13,14 @@ const STORE = [
 // returns an object
 function _getItem ( that ) {
   
-  let ID =  parseInt($(that).closest('.js-item-ID-element').attr('data-item-ID'));
+  let ID =  parseInt($(that)
+              .closest('.js-item-ID-element')
+              .attr('data-item-ID'));
   
   return STORE.find(obj => obj.ID === ID);
 }
 
-// void return
+// boolean return
 function _addItem ( that ) {
   
   let field = $(that).find('.js-shopping-list-entry');
@@ -25,15 +28,18 @@ function _addItem ( that ) {
   if(/([A-z])\w/.test(field.val())) {
     STORE.push(
       {
-        // ensures an original ID no matter what, as long as order isnt changed
+        // ensures an original ID no matter what, 
+        // as long as order isnt changed
         ID: ++STORE[STORE.length - 1].ID,
         name: field.val(), 
         checked: false
       });
     field.val('');
+    
+    return true;
   }
-
-  return field;
+  
+  return false;
 }
 
 // void return
@@ -63,6 +69,9 @@ function renderShoppingList() {
   $('.js-shopping-list').html(list);
 }
 
+// The following functions have no return value 
+// because they create event listeners
+
 // void return
 function handleNewItemSubmit() {
   // listen for users adding a new shopping list item, then add
@@ -72,9 +81,9 @@ function handleNewItemSubmit() {
     
     event.preventDefault();
     
-    _addItem(this);
-    
-    renderShoppingList();  
+    if(_addItem(this)) {
+      renderShoppingList();
+    }
   });
 }
 
@@ -109,12 +118,16 @@ function handleDeleteItemClicked() {
   });
 }
 
-// void return
+
+// The 'main' function, which calls other functions
 function handleShoppingList() {
   renderShoppingList();
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
+  
+  // C convention... a program in C returns 0
+  return 0;
 }
 
 $(handleShoppingList);
