@@ -1,62 +1,63 @@
+'use strict';
+
 // refactor of my original take on shopping list 2
 
 // I follow convention of declaring return type in comment preceding function
 
 const STORE = [
-  {ID: 0, name: "apples", checked: false},
-  {ID: 1, name: "oranges", checked: false},
-  {ID: 2, name: "milk", checked: true},
-  {ID: 3, name: "bread", checked: false}
+    { ID: 0, name: "apples", checked: false },
+    { ID: 1, name: "oranges", checked: false },
+    { ID: 2, name: "milk", checked: true },
+    { ID: 3, name: "bread", checked: false }
 ];
 
 
 // returns an object
-function _getItem ( that ) {
-  
-  let ID =  parseInt($(that)
-              .closest('.js-item-ID-element')
-              .attr('data-item-ID'));
-  
-  return STORE.find(obj => obj.ID === ID);
+function _getItem(that) {
+
+    let ID = parseInt($(that)
+        .closest('.js-item-ID-element')
+        .attr('data-item-ID'));
+
+    return STORE.find(obj => obj.ID === ID);
 }
 
 // boolean return
-function _addItem ( that ) {
-  
-  let field = $(that).find('.js-shopping-list-entry');
-    
-  if(/([A-z])\w/.test(field.val())) {
-    STORE.push(
-      {
-        // ensures an original ID no matter what, 
-        // as long as order isnt changed
-        ID: STORE[STORE.length - 1].ID + 1,
-        name: field.val(), 
-        checked: false
-      });
-    field.val('');
-    
-    return true;
-  }
-  
-  return false;
+function _addItem(that) {
+
+    let field = $(that).find('.js-shopping-list-entry');
+
+    if (/([A-z])\w/.test(field.val())) {
+        STORE.push({
+            // ensures an original ID no matter what, 
+            // as long as order isnt changed
+            ID: STORE[STORE.length - 1].ID + 1,
+            name: field.val(),
+            checked: false
+        });
+        field.val('');
+
+        return true;
+    }
+
+    return false;
 }
 
 // void return
 function renderShoppingList() {
-  // render the shopping list in the DOM
-  
-  // may change 'items' to parameter if it is 
-  // necessary to generalize this function
-  let items = STORE;
-  
-  let list = [];
-  
-  
-  
-  for(let i = 0; i < items.length; i++) {
-    list.push(
-      $(`<li class="js-item-ID-element" data-item-ID="${items[i].ID}">
+    // render the shopping list in the DOM
+
+    // may change 'items' to parameter if it is 
+    // necessary to generalize this function
+    let items = STORE;
+
+    let list = [];
+
+
+
+    for (let i = 0; i < items.length; i++) {
+        list.push(
+            $(`<li class="js-item-ID-element" data-item-ID="${items[i].ID}">
             <span class="shopping-item
             ${items[i].checked ? 'shopping-item__checked': ''}
             ">${items[i].name}</span>
@@ -69,10 +70,10 @@ function renderShoppingList() {
               </button>
             </div>
         </li>`)
-      );
-  }
-  
-  $('.js-shopping-list').html(list);
+        );
+    }
+
+    $('.js-shopping-list').html(list);
 }
 
 // The following functions have no return value 
@@ -80,61 +81,61 @@ function renderShoppingList() {
 
 // void return
 function handleNewItemSubmit() {
-  // listen for users adding a new shopping list item, then add
-  // to list and render list 
-  
-  $('#js-shopping-list-form').submit(function(event) {
-    
-    event.preventDefault();
-    
-    if(_addItem(this)) {
-      renderShoppingList();
-    }
-  });
+    // listen for users adding a new shopping list item, then add
+    // to list and render list 
+
+    $('#js-shopping-list-form').submit(function(event) {
+
+        event.preventDefault();
+
+        if (_addItem(this)) {
+            renderShoppingList();
+        }
+    });
 }
 
 // void return
 function handleItemCheckClicked() {
-  // listen for users checking/unchecking list items, and
-  // render them checked/unchecked accordingly
-  
-  $('.js-shopping-list').on('click', '.js-item-toggle', function() {
-    
-    let item = _getItem(this);
-    
-    item.checked = !item.checked;
-  
-    renderShoppingList();  
-  });
+    // listen for users checking/unchecking list items, and
+    // render them checked/unchecked accordingly
+
+    $('.js-shopping-list').on('click', '.js-item-toggle', function() {
+
+        let item = _getItem(this);
+
+        item.checked = !item.checked;
+
+        renderShoppingList();
+    });
 }
 
 // void return
 function handleDeleteItemClicked() {
-  // Listen for when users want to delete an item and 
-  // delete it
-  
-  
-  $('.js-shopping-list').on('click', '.js-item-delete', function() {
-    
-    let item = _getItem(this);
+    // Listen for when users want to delete an item and 
+    // delete it
 
-    STORE.splice(STORE.indexOf(item), 1);
-    
-    renderShoppingList();  
-  });
+
+    $('.js-shopping-list').on('click', '.js-item-delete', function() {
+
+        let item = _getItem(this);
+
+        STORE.splice(STORE.indexOf(item), 1);
+
+        renderShoppingList();
+    });
 }
 
 
 // The 'main' function, which calls other functions
 function handleShoppingList() {
-  renderShoppingList();
-  handleNewItemSubmit();
-  handleItemCheckClicked();
-  handleDeleteItemClicked();
-  
-  // C convention... a program in C returns 0
-  // alternatively, could make it return true
-  return 0;
+    renderShoppingList();
+    handleNewItemSubmit();
+    handleItemCheckClicked();
+    handleDeleteItemClicked();
+
+    // C convention... a program in C returns 0
+    // alternatively, could make it return true
+    return 0;
 }
 
 $(handleShoppingList);
