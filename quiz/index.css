@@ -39,19 +39,27 @@ html {
 	left: 300px;
 	
 	
+	
+	
 }
 
 
 .answer {
-	width: 50px;
+	width: 75px;
+	height: 75px;
 	position: relative;
-	
+	margin: 0;
+}
+
+.obstruction {
 	margin: 0;
 }
 
 .obstruct-img {
 	width: 75px;
 	height: 75px;
+	
+	margin: 0;
 }
 
 

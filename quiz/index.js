@@ -198,6 +198,11 @@ function _renderForm(index) {
 	for (let i = 0, x = a.length; i < x; i++) {
 
 		formElements.push(_generateAnswer(a, q, i));
+		// these obstructions will sit on top of answers
+		formElements.push(
+		    _generateObstruction(
+		        a[i].offset.left, 
+		        a[i].offset.top));
 	}
 	
 	for (let j = 0, y = q.obstacleNum + a.length; j < y; j++) {
@@ -256,9 +261,14 @@ function loadInitialState() {
 	$( ".obstruction" ).draggable({ containment: "#drag-zone", scroll: false });
 }
 
+function handleNav() {
+    
+}
+
 function handleQuiz () {
 
 	loadInitialState();
+	handleNav();
 
 	return 0;
 }
