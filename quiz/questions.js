@@ -7,8 +7,6 @@ const QUESTIONS = [{
         answers: [{
                 ID: 0,
                 value: '7',
-                // pos is the array index of the element
-                // that the input tag will be inserted in
                 position: 0,
                 offset: { x: 0, y: 0 },
                 isCorrect: false

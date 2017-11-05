@@ -96,17 +96,73 @@ const QUESTIONS = [{
 
 
 
-function _renderForm() {
+function _renderForm(index) {
 
-	const q = QUESTIONS;
+	const q = QUESTIONS[index];
 
-	console.log(q);
+	const a = q.answers;
 
+	const formElements = [];
+
+	for (let i = 0, x = a.length; i < x; i++) {
+		
+		a[i].value;
+
+		formElements.push(`
+				<figure class="js-answer-${a[i].position}">
+					<label 
+						for="question-${q.ID+1}" 
+						class="js-label-${a[i].position}"
+						>
+						${a[i].value}
+					</label>
+					<input 
+						type="radio" 
+						name="question-${q.ID+1}" 
+						id="" 
+						class="js-input-${a[i].position} 
+						value="${a[i].value}"
+					>
+				</figure>				
+			`);
+	}
+
+
+	$('#main-app').html($(`
+			
+			<form 
+				method="post"
+				>
+				<fieldset
+					>
+					<legend>
+						${q.title}
+					</legend>
+					<h1>
+						${q.text}
+					</h1>
+					<section
+						class="draggable-zone-parent"
+						>
+						<section 
+							class="draggable-zone"
+							>
+							${formElements.join('')}	
+						</section>
+					</section>
+				</fieldset>
+			</form>			
+
+		`));
+
+	return true;
 }
 
 function loadInitialState() {
 
-	_renderForm();
+	_renderForm(0);
+
+	$( ".draggable-zone" ).draggable({ containment: ".overflow-zone-parent", scroll: false });
 }
 
 function handleQuiz () {

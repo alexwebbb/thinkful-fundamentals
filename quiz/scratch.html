@@ -4,34 +4,24 @@ form>fieldset>legend+ul>(li.form-row>((figure>img)+label+input+figure>img))*4
 
 form>fieldset>legend+section>(article.js-form-row.js-row-$>((figure.obstruction>img)*2+figure.answer>(label.js-label-$+input:r.js-input-$)))*4
 
+form>fieldset.draggable-zone-parent>legend+section.draggable-zone>((figure.obstruction>img.obstruct-img)*2+figure.js-answer-$>(label.js-label-${Click Me $}+input:r.js-input-$))*4
+
+form>fieldset.draggable-zone-parent>legend+section.draggable-zone>((figure.obstruction>img.obstruct-img)+figure.js-answer-$>(label.js-label-${Click Me $}+input:r.js-input-$))
+
+
 <form action="">
-	<fieldset>
+	<fieldset class="draggable-zone-parent">
 		<legend></legend>
-		<section>
-			<article class="js-form-row js-row-1">
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<label for="" class="js-label-1"></label>
+		<section class="draggable-zone">
+			<figure class="obstruction">
+				<img src="" alt="" class="obstruct-img">
+			</figure>
+			<figure class="js-answer-1">
+				<label for="" class="js-label-1">
+					Click Me 1
+				</label>
 				<input type="radio" name="" id="" class="js-input-1">
-			</article>
-			<article class="js-form-row js-row-2">
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<label for="" class="js-label-2"></label>
-				<input type="radio" name="" id="" class="js-input-2">
-			</article>
-			<article class="js-form-row js-row-3">
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<label for="" class="js-label-3"></label>
-				<input type="radio" name="" id="" class="js-input-3">
-			</article>
-			<article class="js-form-row js-row-4">
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<figure class="obstruction"><img src="" alt=""></figure>
-				<label for="" class="js-label-4"></label>
-				<input type="radio" name="" id="" class="js-input-4">
-			</article>
+			</figure>
 		</section>
 	</fieldset>
 </form>
