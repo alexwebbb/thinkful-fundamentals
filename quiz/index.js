@@ -10,28 +10,28 @@ const QUESTIONS = [{
                 // pos is the array index of the element
                 // that the input tag will be inserted in
                 position: 0,
-                offset: { x: 110, y: 96 },
+                offset: { left: 492, top: 110 },
                 isCorrect: false
             },
             {
                 ID: 1,
                 value: '4',
                 position: 1,
-                offset: { x: 35, y: 14 },
+                offset: { left: 682, top: 176 },
                 isCorrect: false
             },
             {
                 ID: 2,
                 value: '2',
                 position: 2,
-                offset: { x: 11, y: 88 },
+                offset: { left: 173, top: 256 },
                 isCorrect: true
             },
             {
                 ID: 3,
                 value: '14',
                 position: 3,
-                offset: { x: 66, y: 52 },
+                offset: { left: 48, top: 111 },
                 isCorrect: false
             }
         ],
@@ -50,28 +50,28 @@ const QUESTIONS = [{
                 ID: 0,
                 value: '7',
                 position: 0,
-                offset: { x: 0, y: 0 },
+                offset: { left: 0, top: 0 },
                 isCorrect: false
             },
             {
                 ID: 1,
                 value: '4',
                 position: 1,
-                offset: { x: 0, y: 0 },
+                offset: { left: 0, top: 0 },
                 isCorrect: true
             },
             {
                 ID: 2,
                 value: '2',
                 position: 2,
-                offset: { x: 0, y: 0 },
+                offset: { left: 0, top: 0 },
                 isCorrect: false
             },
             {
                 ID: 3,
                 value: '14',
                 position: 3,
-                offset: { x: 0, y: 0 },
+                offset: { left: 0, top: 0 },
                 isCorrect: false
             }
         ],
@@ -114,7 +114,9 @@ function _renderForm(index) {
 					>
 					<figure 
 						class="answer"
-						style="left: ${a[i].offset.x}px; top: ${a[i].offset.y}px;"
+						style="
+						    left: ${a[i].offset.left}px; 
+						    top: ${a[i].offset.top}px;"
 						>
 						<label 
 							for="question-${q.ID+1}" 
@@ -148,18 +150,18 @@ function _renderForm(index) {
 					<h1>
 						${q.text}
 					</h1>
-					<section id="overflow-parent"
+					<div id="drag-zone-overflow"
 						>
-						<section
-							id="draggable-zone-parent"
+						<div
+							id="drag-zone-parent"
 							>
 							<section 
-								id="draggable-zone"
+								id="drag-zone"
 								>
 								${formElements.join('')}	
 							</section>
-						</section>
-					</section>
+						</div>
+					</div>
 				</fieldset>
 			</form>			
 
@@ -172,8 +174,8 @@ function loadInitialState() {
 
 	_renderForm(0);
 
-	$( "#draggable-zone" ).draggable({ containment: "#draggable-zone-parent", scroll: false });
-	$( ".answer" ).draggable({ containment: "#draggable-zone", scroll: false });
+	$( "#drag-zone" ).draggable({ containment: "#drag-zone-parent", scroll: false });
+	$( ".answer" ).draggable({ containment: "#drag-zone", scroll: false });
 }
 
 function handleQuiz () {

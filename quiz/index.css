@@ -1,44 +1,52 @@
 html {
 	box-sizing: border-box;
+	
+	/* variables */
+	--drag-width: 800px;
 }
 
 *, *:before, *:after {
 	box-sizing: inherit;
 }
 
-#overflow-parent {
+#drag-zone-overflow {
+	/* This is the 'frame' for our draggable area */
 	overflow: hidden;
 	height: 380px;
 	width: 400px;
-
 }
 
 
-
-#draggable-zone-parent {
+#drag-zone-parent {
 	background-color: blue;
+	
+	/* These are the bounds of where you can drag the background */
 	height:400px;
-	width: 800px;
-	border:2px solid #ccc;
-	padding: 10px;
-
+	width: 1500px;
+	
+	/* this centers our oversized element */
 	margin-left: 50%;
 	transform: translateX(-50%);
-	
 }
 
-#draggable-zone {
+#drag-zone {
 	background-color: green;
-	height: 150px;
-	width: 500px;
-	float: left;
+	
+	/* The following settings make it so you can drag left to right.
+	Because it is left to right, width must be less than parent width.
+	If it were vertical, it would be height.*/
+	height: 100%;
+	width: 900px;
+	left: 300px;
+	
+	
 }
 
 
 .answer {
-	width: 100px;
+	width: 50px;
 	position: relative;
-
-	float: left;
+	
+	margin: 0;
 }
 
