@@ -109,7 +109,7 @@ function _renderForm(index) {
 		a[i].value;
 
 		formElements.push(`
-				<figure class="js-answer-${a[i].position}">
+				<figure class="answer">
 					<label 
 						for="question-${q.ID+1}" 
 						class="js-label-${a[i].position}"
@@ -141,13 +141,16 @@ function _renderForm(index) {
 					<h1>
 						${q.text}
 					</h1>
-					<section
-						class="draggable-zone-parent"
+					<section id="overflow-parent"
 						>
-						<section 
-							class="draggable-zone"
+						<section
+							id="draggable-zone-parent"
 							>
-							${formElements.join('')}	
+							<section 
+								id="draggable-zone"
+								>
+								${formElements.join('')}	
+							</section>
 						</section>
 					</section>
 				</fieldset>
@@ -162,7 +165,8 @@ function loadInitialState() {
 
 	_renderForm(0);
 
-	$( ".draggable-zone" ).draggable({ containment: ".overflow-zone-parent", scroll: false });
+	$( "#draggable-zone" ).draggable({ containment: "#draggable-zone-parent", scroll: false });
+	$( ".answer" ).draggable({ containment: "#draggable-zone", scroll: false });
 }
 
 function handleQuiz () {
