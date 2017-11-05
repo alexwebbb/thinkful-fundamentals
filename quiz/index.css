@@ -1,8 +1,5 @@
 html {
 	box-sizing: border-box;
-	
-	/* variables */
-	--drag-width: 800px;
 }
 
 *, *:before, *:after {
@@ -14,6 +11,8 @@ html {
 	overflow: hidden;
 	height: 380px;
 	width: 400px;
+	margin: 0 auto;
+
 }
 
 
@@ -50,3 +49,34 @@ html {
 	margin: 0;
 }
 
+.obstruct-img {
+	width: 75px;
+	height: 75px;
+}
+
+
+
+/* styling */
+
+body {
+	max-width: 450px;
+	margin: 0 auto;
+	
+}
+
+
+nav {
+	padding-top: 15px;
+	/* text-align: center;*/
+	
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.nav-element {
+	display: inline-block;
+	border: black solid 2px;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+}
