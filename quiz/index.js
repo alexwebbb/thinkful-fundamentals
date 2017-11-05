@@ -35,8 +35,6 @@ const QUESTIONS = [{
                 isCorrect: false
             }
         ],
-        isAnswered: false,
-        isCorrect: false,
         // this will be filled in a bit later...
         // may also be changed to a data structure 
         // that has an object for each image
@@ -51,34 +49,32 @@ const QUESTIONS = [{
                 ID: 0,
                 value: '11',
                 position: 0,
-                offset: { left: 0, top: 0 },
+                offset: { left: 474, top: 200 },
                 isCorrect: false
             },
             {
                 ID: 1,
                 value: '4',
                 position: 1,
-                offset: { left: 0, top: 0 },
+                offset: { left: 102, top: 294 },
                 isCorrect: true
             },
             {
                 ID: 2,
                 value: '6',
                 position: 2,
-                offset: { left: 0, top: 0 },
+                offset: { left: 774, top: 235 },
                 isCorrect: false
             },
             {
                 ID: 3,
                 value: '1.5',
                 position: 3,
-                offset: { left: 0, top: 0 },
+                offset: { left: 44, top: 163 },
                 isCorrect: false
             }
         ],
-        isAnswered: false,
-        isCorrect: false,
-        image: null,
+        image: "http://pngimg.com/uploads/book/book_PNG2119.png",
         obstacleNum: 30
     },
     {
@@ -114,8 +110,6 @@ const QUESTIONS = [{
                 isCorrect: false
             }
         ],
-        isAnswered: false,
-        isCorrect: false,
         image: null,
         obstacleNum: 30
     }
@@ -130,7 +124,10 @@ const QUESTIONS = [{
 
 
 
-
+const currentState = {
+    questionNum: 0,
+    questionAnswers: []
+}
 
 
 function _getRandomRange(min, max) {
@@ -166,7 +163,7 @@ function _generateAnswer(a, q, i) {
 			`;
 }
 
-function _generateObstruction(left, top) {
+function _generateObstruction(left, top, image) {
     return `
 	        <div
 	            style="position: absolute;"
@@ -178,7 +175,7 @@ function _generateObstruction(left, top) {
 						top: ${top}px;"
 	                    >
 				    <img 
-				        src="http://pngimg.com/uploads/building/building_PNG91.png" 
+				        src="${image}" 
 				        alt="Perhaps there is an answer behind this building..." 
 				        class="obstruct-img"
 				        >
@@ -202,7 +199,8 @@ function _renderForm(index) {
 		formElements.push(
 		    _generateObstruction(
 		        a[i].offset.left, 
-		        a[i].offset.top));
+		        a[i].offset.top,
+		        q.image));
 	}
 	
 	for (let j = 0, y = q.obstacleNum + a.length; j < y; j++) {
@@ -210,7 +208,8 @@ function _renderForm(index) {
 	    formElements.push(
 	        _generateObstruction(
 	            _getRandomRange(5, 760), 
-	            _getRandomRange(5, 350)));
+	            _getRandomRange(5, 350),
+	            q.image));
 	}
 
 
@@ -243,11 +242,14 @@ function _renderForm(index) {
 				<nav role="navigation">
                     <span class="nav-element">Correct: </span>
                     <span class="nav-element">Wrong: </span>
-                    <span class="nav-element" role="button">Prev</span>
-                    <span class="nav-element" role="button">Next</span>
+                    <span class="nav-element prev-button" role="button">Prev</span>
+                    <span class="nav-element next-button" role="button">Next</span>
                 </nav>
 			</form>
 		`));
+		
+	$( "#drag-zone" ).draggable({ containment: "#drag-zone-parent", scroll: false });
+	$( ".obstruction" ).draggable({ containment: "#drag-zone", scroll: false });
 
 	return true;
 }
@@ -256,13 +258,22 @@ function loadInitialState() {
 
 	_renderForm(0);
 
-	$( "#drag-zone" ).draggable({ containment: "#drag-zone-parent", scroll: false });
-	// $( ".answer" ).draggable({ containment: "#drag-zone", scroll: false });
-	$( ".obstruction" ).draggable({ containment: "#drag-zone", scroll: false });
+
 }
 
 function handleNav() {
     
+    $('#main-app').on('click', '.prev-button', function() {
+        if(currentState.questionNum > 0) {
+            currentState.questionNum--;
+            _renderForm(currentState.questionNum);   
+        }
+    });
+    
+    $('#main-app').on('click', '.next-button', function() {
+        currentState.questionNum++;
+        _renderForm(currentState.questionNum);
+    });
 }
 
 function handleQuiz () {
