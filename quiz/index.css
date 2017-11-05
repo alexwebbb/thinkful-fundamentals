@@ -37,4 +37,8 @@ html {
 
 .answer {
 	width: 100px;
+	position: relative;
+
+	float: left;
 }
+

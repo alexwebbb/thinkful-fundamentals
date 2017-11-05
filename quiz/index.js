@@ -10,28 +10,28 @@ const QUESTIONS = [{
                 // pos is the array index of the element
                 // that the input tag will be inserted in
                 position: 0,
-                offset: { x: 0, y: 0 },
+                offset: { x: 110, y: 96 },
                 isCorrect: false
             },
             {
                 ID: 1,
                 value: '4',
                 position: 1,
-                offset: { x: 0, y: 0 },
+                offset: { x: 35, y: 14 },
                 isCorrect: false
             },
             {
                 ID: 2,
                 value: '2',
                 position: 2,
-                offset: { x: 0, y: 0 },
+                offset: { x: 11, y: 88 },
                 isCorrect: true
             },
             {
                 ID: 3,
                 value: '14',
                 position: 3,
-                offset: { x: 0, y: 0 },
+                offset: { x: 66, y: 52 },
                 isCorrect: false
             }
         ],
@@ -109,21 +109,28 @@ function _renderForm(index) {
 		a[i].value;
 
 		formElements.push(`
-				<figure class="answer">
-					<label 
-						for="question-${q.ID+1}" 
-						class="js-label-${a[i].position}"
-						>
-						${a[i].value}
-					</label>
-					<input 
-						type="radio" 
-						name="question-${q.ID+1}" 
-						id="" 
-						class="js-input-${a[i].position} 
-						value="${a[i].value}"
+				<div
+					style="position: absolute;"
 					>
-				</figure>				
+					<figure 
+						class="answer"
+						style="left: ${a[i].offset.x}px; top: ${a[i].offset.y}px;"
+						>
+						<label 
+							for="question-${q.ID+1}" 
+							class="js-label-${a[i].position}"
+							>
+							${a[i].value}
+						</label>
+						<input 
+							type="radio" 
+							name="question-${q.ID+1}" 
+							id="" 
+							class="js-input-${a[i].position} 
+							value="${a[i].value}"
+						>
+					</figure>
+				</div>				
 			`);
 	}
 
