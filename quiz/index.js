@@ -213,7 +213,21 @@ const QUESTIONS = [{
 
 const currentState = {
     questionNum: 0,
-    questionAnswers: []
+    playerAnswers: []
+    ,
+    score: function() {
+
+        let correct = 0;
+
+//        for (let i = 0, x = playerAnswers.length; i < x; i++) {
+//            
+//            if (QUESTIONS[i].answers[this.playerAnswers[i]].isCorrect) {
+//                correct++;
+//            }
+//        }
+
+        return correct;
+    }
 }
 
 
@@ -241,9 +255,9 @@ function _generateAnswer(a, q, i) {
 						<input 
 							type="radio" 
 							name="question" 
-							id="${a[i].ID}" 
+							id="answer-${a[i].ID}" 
 							class="js-input-${a[i].position}"
-							value="${a[i].value}"
+							value="${a[i].ID}"
 						    >
 					</figure>
 				</div>				
@@ -327,7 +341,7 @@ function _renderForm(index) {
 				    </div>
 				</fieldset>
 				<nav role="navigation">
-                    <span class="nav-element">Correct: </span>
+                    <span class="nav-element">Correct: ${currentState.score()}</span>
                     <span class="nav-element">Wrong: </span>
                     <span class="nav-element prev-button" role="button">Prev</span>
                     <span class="nav-element next-button" role="button">Next</span>
@@ -359,10 +373,10 @@ function handleNav() {
     
     $('#main-app').on('click', '.next-button', function() {
         
-        console.log($('input[name="question"]:checked').val());
+        currentState.playerAnswers[currentState.questionNum] = $('input[name="question"]:checked').val();
         
-        if(currentState.questionNum < currentState.questionAnswers.length 
-        && currentState.questionAnswers[currentState.questionNum] !== null
+        if(currentState.questionNum < currentState.playerAnswers.length 
+        && currentState.playerAnswers[currentState.questionNum]
         ) {
             currentState.questionNum++;
             _renderForm(currentState.questionNum);
