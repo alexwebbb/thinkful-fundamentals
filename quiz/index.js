@@ -38,7 +38,10 @@ const QUESTIONS = [{
         // this will be filled in a bit later...
         // may also be changed to a data structure 
         // that has an object for each image
-        image: "http://pngimg.com/uploads/building/building_PNG91.png",
+        image: {
+            url: "http://pngimg.com/uploads/building/building_PNG91.png",
+            alt: "Perhaps there is an answer behind this building..."
+        },
         obstacleNum: 20
     },
     {
@@ -74,8 +77,11 @@ const QUESTIONS = [{
                 isCorrect: false
             }
         ],
-        image: "http://pngimg.com/uploads/book/book_PNG2119.png",
-        obstacleNum: 30
+        image: {
+            url: "http://pngimg.com/uploads/book/book_PNG2119.png",
+            alt: "Perhaps there is an answer among these books..."
+        },
+        obstacleNum: 24
     },
     {
         ID: 2,
@@ -85,33 +91,114 @@ const QUESTIONS = [{
                 ID: 0,
                 value: '44',
                 position: 0,
-                offset: { left: 0, top: 0 },
+                offset: { left: 62, top: 50 },
                 isCorrect: false
             },
             {
                 ID: 1,
                 value: '-3',
                 position: 1,
-                offset: { left: 0, top: 0 },
-                isCorrect: true
+                offset: { left: 432, top: 200 },
+                isCorrect: false
             },
             {
                 ID: 2,
-                value: '16',
+                value: '6',
                 position: 2,
-                offset: { left: 0, top: 0 },
-                isCorrect: false
+                offset: { left: 35, top: 116 },
+                isCorrect: true
             },
             {
                 ID: 3,
                 value: '9',
                 position: 3,
-                offset: { left: 0, top: 0 },
+                offset: { left: 640, top: 212 },
                 isCorrect: false
             }
         ],
-        image: null,
-        obstacleNum: 30
+        image: {
+            url: "http://pngimg.com/uploads/medival_knight/medival_knight_PNG15955.png",
+            alt: "Its a templar! Watch out!"
+        },
+        obstacleNum: 16
+    },
+    {
+        ID: 3,
+        title: 'Question 4',
+        text: 'What is 4 + 4?',
+        answers: [{
+                ID: 0,
+                value: '44',
+                position: 0,
+                offset: { left: 162, top: 250 },
+                isCorrect: false
+            },
+            {
+                ID: 1,
+                value: '666',
+                position: 1,
+                offset: { left: 232, top: 150 },
+                isCorrect: false
+            },
+            {
+                ID: 2,
+                value: '12',
+                position: 2,
+                offset: { left: 678, top: 16 },
+                isCorrect: false
+            },
+            {
+                ID: 3,
+                value: '8',
+                position: 3,
+                offset: { left: 10, top: 300 },
+                isCorrect: true
+            }
+        ],
+        image: {
+            url: "http://pngimg.com/uploads/christian_cross/christian_cross_PNG23030.png",
+            alt: "Look at all these crosses. We should be safe here!"
+        },
+        obstacleNum: 40
+    },
+    {
+        ID: 3,
+        title: 'Question 5',
+        text: 'What is 5 + 5?',
+        answers: [{
+                ID: 0,
+                value: '100',
+                position: 0,
+                offset: { left: 32, top: 40 },
+                isCorrect: false
+            },
+            {
+                ID: 1,
+                value: '13',
+                position: 1,
+                offset: { left: 496, top: 70 },
+                isCorrect: false
+            },
+            {
+                ID: 2,
+                value: 'ten',
+                position: 2,
+                offset: { left: 628, top: 160 },
+                isCorrect: true
+            },
+            {
+                ID: 3,
+                value: '0',
+                position: 3,
+                offset: { left: 130, top: 30 },
+                isCorrect: false
+            }
+        ],
+        image: {
+            url: "http://pngimg.com/uploads/skeleton/skeleton_PNG5552.png ",
+            alt: "Uh oh, its a skull. Hope there aren't any rats!"
+        },
+        obstacleNum: 40
     }
 ];
 
@@ -146,16 +233,16 @@ function _generateAnswer(a, q, i) {
 						    top: ${a[i].offset.top}px;"
 						>
 						<label 
-							for="question-${q.ID+1}" 
+							for="question" 
 							class="js-label-${a[i].position}"
 							>
 							${a[i].value}
 						</label>
 						<input 
 							type="radio" 
-							name="question-${q.ID+1}" 
-							id="" 
-							class="js-input-${a[i].position} 
+							name="question" 
+							id="${a[i].ID}" 
+							class="js-input-${a[i].position}"
 							value="${a[i].value}"
 						    >
 					</figure>
@@ -175,8 +262,8 @@ function _generateObstruction(left, top, image) {
 						top: ${top}px;"
 	                    >
 				    <img 
-				        src="${image}" 
-				        alt="Perhaps there is an answer behind this building..." 
+				        src="${image.url}" 
+				        alt="${image.alt}" 
 				        class="obstruct-img"
 				        >
 			    </figure>
@@ -271,8 +358,16 @@ function handleNav() {
     });
     
     $('#main-app').on('click', '.next-button', function() {
-        currentState.questionNum++;
-        _renderForm(currentState.questionNum);
+        
+        console.log($('input[name="question"]:checked').val());
+        
+        if(currentState.questionNum < currentState.questionAnswers.length 
+        && currentState.questionAnswers[currentState.questionNum] !== null
+        ) {
+            currentState.questionNum++;
+            _renderForm(currentState.questionNum);
+        }
+        
     });
 }
 
