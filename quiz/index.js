@@ -157,6 +157,52 @@ function _renderForm(index) {
     return true;
 }
 
+function _generateWinScreen() {
+
+
+    $('#main-app').html($(`
+            
+            <form 
+                method="post"
+                id="main-form"
+                >
+                <fieldset>
+                    <legend>
+                        Nice
+                    </legend>
+                    <h1>
+                        Congratulations!
+                    </h1>
+                    <div 
+                        id="drag-zone-frame"
+                        class="win-condition"
+                        >
+                        <div class="win-subgroup">
+                            <img
+                                class="grail" 
+                                src="http://res.cloudinary.com/execool/image/upload/v1510143883/high-quality-income-stocks-the-holy-grail-for-investors_yqlmqp.png" 
+                                alt="The Holy Grail" 
+                                class="obstruct-img"
+                                >
+                            <p
+                                >
+                                You Win!<br>
+                                Here it is!</p>
+                        </div>
+                    </div>
+                </fieldset>
+                <nav role="navigation">
+                    <span class="nav-element">Correct: ${currentState.correct}</span>
+                    <span class="nav-element">Wrong: ${currentState.wrong}</span>
+                    <input class="nav-element prev-button" role="button" type="button" value="" disabled>
+                    <input class="nav-element" role="button" type="submit" value="Reset?">
+                </nav>
+            </form>
+        `));
+
+    $(".grail").draggable();
+}
+
 function loadInitialState() {
 
     _renderForm(0);
@@ -183,7 +229,12 @@ function handleNav(c) {
         ) {
             c.updateScore();
             c.questionNum++;
-            _renderForm(c.questionNum);
+
+            if (QUESTIONS.length === c.correct) {
+                _generateWinScreen();
+            } else if (QUESTIONS.length !== c.playerAnswers.length) {
+                _renderForm(c.questionNum);
+            }
         }
 
     });
@@ -193,6 +244,7 @@ function handleQuiz() {
 
     loadInitialState();
     handleNav(currentState);
+
 
     return 0;
 }
