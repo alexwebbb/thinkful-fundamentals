@@ -7,12 +7,13 @@ const currentState = {
 
         let correct = 0;
 
-        for (let i = 0, x = this.playerAnswers.length; i < x; i++) {
+        this.playerAnswers.forEach((playerAnswer, i) => {
 
-            if (QUESTIONS[i].answers[this.playerAnswers[i]].isCorrect) {
+            if (QUESTIONS[i].answers[playerAnswer].isCorrect) {
                 correct++;
             }
-        }
+
+        });
 
         return correct;
     }
@@ -23,7 +24,7 @@ function _getRandomRange(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-function _generateAnswer(a, q, i) {
+function _generateAnswer(a) {
     return `
                 <div
                     style="position: absolute;"
@@ -31,29 +32,29 @@ function _generateAnswer(a, q, i) {
                     <figure 
                         class="answer"
                         style="
-                            left: ${a[i].offset.left}px; 
-                            top: ${a[i].offset.top}px;"
+                            left: ${a.offset.left}px; 
+                            top: ${a.offset.top}px;"
                         >
                         <label 
                             for="question" 
-                            class="js-label-${a[i].position}"
+                            class="js-label-${a.position}"
                             >
-                            ${a[i].value}
+                            ${a.value}
                         </label>
                         <input 
                             type="radio" 
                             name="question" 
-                            id="answer-${a[i].ID}" 
-                            class="js-input-${a[i].position}"
-                            value="${a[i].ID}"
+                            id="answer-${a.ID}" 
+                            class="js-input-${a.position}"
+                            value="${a.ID}"
                             >
                     </figure>
                 </div>              
             `;
 }
 
-function _generateObstruction(left, top, image) {
-    return  `
+function _generateObstruction(left, top, imageUrl, alt) {
+    return `
             <div
                 style="position: absolute;"
                 >
@@ -64,8 +65,8 @@ function _generateObstruction(left, top, image) {
                         top: ${top}px;"
                         >
                     <img 
-                        src="${image.url}" 
-                        alt="${image.alt}" 
+                        src="${imageUrl}" 
+                        alt="${alt}" 
                         class="obstruct-img"
                         >
                 </figure>
@@ -81,24 +82,28 @@ function _renderForm(index) {
 
     const formElements = [];
 
-    for (let i = 0, x = a.length; i < x; i++) {
-
-        formElements.push(_generateAnswer(a, q, i));
+    a.forEach((answer, i) => {
+        // statements
+        formElements.push(_generateAnswer(answer));
         // these obstructions will sit on top of answers
+        // they are the only obstructions to have alt text
         formElements.push(
             _generateObstruction(
-                a[i].offset.left,
-                a[i].offset.top,
-                q.image));
-    }
+                answer.offset.left - 15,
+                answer.offset.top - 15,
+                q.image.url, q.image.alt));
+    });
 
-    for (let j = 0, y = q.obstacleNum + a.length; j < y; j++) {
 
+    for (let i = 0, x = q.obstacleNum; i < x; i++) {
+        // these obstructions will have blank alt
+        // which is the standard way to indicate 
+        // presentation elements in ARIA
         formElements.push(
             _generateObstruction(
                 _getRandomRange(5, 760),
                 _getRandomRange(5, 350),
-                q.image));
+                q.image.url, ''));
     }
 
 
@@ -115,11 +120,15 @@ function _renderForm(index) {
                     <h1>
                         ${q.text}
                     </h1>
-                    <div id="drag-zone-overflow"
+        <!-- The following element is the frame for thee draggable area -->
+                    <div id="drag-zone-frame"
                         >
+        <!-- The following element bounds the draggable background element -->
                         <div
                             id="drag-zone-parent"
                             >
+        <!-- The following element IS the draggable background element. 
+            It is also the parent for all the smaller draggable elements. -->
                             <section 
                                 id="drag-zone"
                                 >
@@ -131,12 +140,15 @@ function _renderForm(index) {
                 <nav role="navigation">
                     <span class="nav-element">Correct: ${currentState.score()}</span>
                     <span class="nav-element">Wrong: </span>
-                    <span class="nav-element prev-button" role="button">Prev</span>
-                    <span class="nav-element next-button" role="button">Next</span>
+                    <input class="nav-element prev-button" role="button" type="button" value="Prev">
+                    <input class="nav-element next-button" role="button" type="submit" value="Next">
                 </nav>
             </form>
         `));
 
+    // it is not possible to delegate plugins 
+    // jquery garbage collects dead listeners
+    // probably
     $("#drag-zone").draggable({ containment: "#drag-zone-parent", scroll: false });
     $(".obstruction").draggable({ containment: "#drag-zone", scroll: false });
 
@@ -150,24 +162,25 @@ function loadInitialState() {
 
 }
 
-function handleNav() {
+function handleNav(c) {
 
-    $('#main-app').on('click', '.prev-button', function() {
-        if (currentState.questionNum > 0) {
-            currentState.questionNum--;
-            _renderForm(currentState.questionNum);
+    $('#main-app').on('click', '.prev-button', () => {
+        if (c.questionNum > 0) {
+            c.questionNum--;
+            _renderForm(c.questionNum);
         }
     });
 
-    $('#main-app').on('click', '.next-button', function() {
+    $('#main-app').on('click', '.next-button', (event) => {
+        event.preventDefault();
 
-        currentState.playerAnswers[currentState.questionNum] = $('input[name="question"]:checked').val();
+        c.playerAnswers[c.questionNum] = $('input[name="question"]:checked').val();
 
-        if (currentState.questionNum < currentState.playerAnswers.length &&
-            currentState.playerAnswers[currentState.questionNum]
+        if (c.questionNum < c.playerAnswers.length &&
+            c.playerAnswers[c.questionNum]
         ) {
-            currentState.questionNum++;
-            _renderForm(currentState.questionNum);
+            c.questionNum++;
+            _renderForm(c.questionNum);
         }
 
     });
@@ -176,7 +189,7 @@ function handleNav() {
 function handleQuiz() {
 
     loadInitialState();
-    handleNav();
+    handleNav(currentState);
 
     return 0;
 }

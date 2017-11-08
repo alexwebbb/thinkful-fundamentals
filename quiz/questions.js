@@ -39,7 +39,7 @@ const QUESTIONS = [{
         // may also be changed to a data structure 
         // that has an object for each image
         image: {
-            url: "http://pngimg.com/uploads/building/building_PNG91.png",
+            url: "http://res.cloudinary.com/execool/image/upload/v1510128481/quiz/building_PNG91.png",
             alt: "Perhaps there is an answer behind this building..."
         },
         obstacleNum: 20
@@ -78,7 +78,7 @@ const QUESTIONS = [{
             }
         ],
         image: {
-            url: "http://pngimg.com/uploads/book/book_PNG2119.png",
+            url: "http://res.cloudinary.com/execool/image/upload/v1510128481/quiz/book_PNG2119.png",
             alt: "Perhaps there is an answer among these books..."
         },
         obstacleNum: 24
@@ -117,7 +117,7 @@ const QUESTIONS = [{
             }
         ],
         image: {
-            url: "http://pngimg.com/uploads/medival_knight/medival_knight_PNG15955.png",
+            url: "http://res.cloudinary.com/execool/image/upload/c_pad,h_380,w_380/v1510128481/quiz/medival_knight_PNG15955.png",
             alt: "Its a templar! Watch out!"
         },
         obstacleNum: 16
@@ -156,7 +156,7 @@ const QUESTIONS = [{
             }
         ],
         image: {
-            url: "http://pngimg.com/uploads/christian_cross/christian_cross_PNG23030.png",
+            url: "http://res.cloudinary.com/execool/image/upload/c_pad,h_592,w_592/v1510128481/quiz/christian_cross_PNG23030.png",
             alt: "Look at all these crosses. We should be safe here!"
         },
         obstacleNum: 40
@@ -195,7 +195,7 @@ const QUESTIONS = [{
             }
         ],
         image: {
-            url: "http://pngimg.com/uploads/skeleton/skeleton_PNG5552.png ",
+            url: "http://res.cloudinary.com/execool/image/upload/v1510128481/quiz/skeleton_PNG5552.png",
             alt: "Uh oh, its a skull. Hope there aren't any rats!"
         },
         obstacleNum: 40

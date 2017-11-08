@@ -6,15 +6,25 @@ html {
 	box-sizing: inherit;
 }
 
-#drag-zone-overflow {
-	/* This is the 'frame' for our draggable area */
+/* Jquery UI specific classes */
+.ui-draggable {
+	cursor: grab;
+}
+
+.ui-draggable-dragging {
+	cursor: grabbing;	
+}
+
+
+/* This is the 'frame' for our draggable area */
+#drag-zone-frame {
 	overflow: hidden;
 	height: 380px;
 	width: 400px;
 	margin: 0 auto;
-
+	border: black solid 4px;
+	border-radius: 3px;
 }
-
 
 #drag-zone-parent {
 	background-color: blue;
@@ -29,7 +39,7 @@ html {
 }
 
 #drag-zone {
-	background-color: green;
+	background-color: white;
 	
 	/* The following settings make it so you can drag left to right.
 	Because it is left to right, width must be less than parent width.
