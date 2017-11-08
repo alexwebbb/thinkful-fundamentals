@@ -3,19 +3,21 @@
 const currentState = {
     questionNum: 0,
     playerAnswers: [],
-    score: function() {
+    correct: 0,
+    wrong: 0,
+    updateScore: function() {
 
-        let correct = 0;
+        this.correct = this.wrong = 0;
 
         this.playerAnswers.forEach((playerAnswer, i) => {
 
             if (QUESTIONS[i].answers[playerAnswer].isCorrect) {
-                correct++;
+                this.correct++;
+            } else {
+                this.wrong++;
             }
 
-        });
-
-        return correct;
+        }, this);
     }
 }
 
@@ -138,8 +140,8 @@ function _renderForm(index) {
                     </div>
                 </fieldset>
                 <nav role="navigation">
-                    <span class="nav-element">Correct: ${currentState.score()}</span>
-                    <span class="nav-element">Wrong: </span>
+                    <span class="nav-element">Correct: ${currentState.correct}</span>
+                    <span class="nav-element">Wrong: ${currentState.wrong}</span>
                     <input class="nav-element prev-button" role="button" type="button" value="Prev">
                     <input class="nav-element next-button" role="button" type="submit" value="Next">
                 </nav>
@@ -179,6 +181,7 @@ function handleNav(c) {
         if (c.questionNum < c.playerAnswers.length &&
             c.playerAnswers[c.questionNum]
         ) {
+            c.updateScore();
             c.questionNum++;
             _renderForm(c.questionNum);
         }

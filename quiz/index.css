@@ -16,15 +16,18 @@ html {
 }
 
 
-/* This is the 'frame' for our draggable area */
+	/* This is the 'frame' for our draggable area */
 #drag-zone-frame {
 	overflow: hidden;
 	height: 380px;
-	width: 400px;
+	width: 300px;
 	margin: 0 auto;
 	border: black solid 4px;
 	border-radius: 3px;
 }
+
+
+
 
 #drag-zone-parent {
 	background-color: blue;
@@ -77,7 +80,7 @@ html {
 /* styling */
 
 body {
-	max-width: 450px;
+	max-width: 90%;
 	margin: 0 auto;
 	
 }
@@ -89,12 +92,50 @@ nav {
 	
 	display: flex;
 	justify-content: space-evenly;
+	align-items: center;
+	flex-direction: column;
 }
 
 .nav-element {
 	display: inline-block;
 	border: black solid 2px;
-	width: 80px;
+	width: 80%;
 	height: 30px;
 	text-align: center;
+	margin-bottom: 10px;
+}
+
+
+
+
+@media screen and (min-width: 600px) {
+	#drag-zone-frame {
+		width: 400px;
+	}
+
+	body {
+		width: 70%;
+	}
+
+	nav {
+		flex-direction: row;
+	}
+
+	.nav-element {
+		width: 80px;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	#drag-zone-frame {
+		width: 600px;
+	}
+
+	body {
+		width: 650px;
+	}
+
+	.nav-element {
+		width: 120px;
+	}
 }
