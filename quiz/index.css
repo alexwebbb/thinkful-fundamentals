@@ -1,3 +1,5 @@
+/* inherit box sizing */
+
 html {
     box-sizing: border-box;
     color: #005555;
@@ -11,7 +13,8 @@ html {
 
 
 
-/* Jquery UI specific classes */
+
+/* Jquery UI specific classes. Unfortunately these dont show up on replit */
 
 .ui-draggable {
     cursor: grab;
@@ -23,7 +26,9 @@ html {
 
 
 
-/* This is the 'frame' for our draggable area */
+
+/* This is the 'frame' for our draggable area. It has a fixed width because of it has on oversized child.
+This page utilizes a mobile first approach, and the width will be overwritten by a media query */
 
 #drag-zone-frame {
     overflow: hidden;
@@ -37,9 +42,12 @@ html {
 
 
 
+/* The size of this object determines where our drag zone can be dragged */
+
 #drag-zone-parent {
     background-color: #005555;
 
+    /* 1500px - 900px = 600px / 2 = 300px, see offset in #drag-zone*/
     height: 400px;
     width: 1500px;
 
@@ -61,11 +69,14 @@ html {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f2', endColorstr='#b7ad70', GradientType=0);
     /* IE6-9 */
     height: 100%;
-    /* 900px + 300px * 2 = 1500px, see parent */
+    /* 900px + 300px * 2 = 1500px, see #drag-zone-parent */
     width: 900px;
     left: 300px;
 }
 
+
+
+/* you cant tell here, but these items are placed in absolutely positioned divs and are moved by an inline style */
 
 .answer {
     width: 75px;
@@ -75,7 +86,7 @@ html {
 }
 
 .answer-obstruction {
-
+    /* fun animation to indicate the position of answers */
     animation: 8s linear 5s infinite alternate none running flash_obstruction;
 }
 
@@ -100,6 +111,10 @@ html {
     margin: 0;
 }
 
+
+
+/* position and style our win screen elements */
+
 .win-condition {
     display: flex;
     justify-content: center;
@@ -119,63 +134,59 @@ html {
 
 
 
-/* styling */
+
+/* generic styling. a more production ready approach would utilize classes */
 
 header {
-	background-color: #747C48;
-	padding: 5px 20px 10px 20px;
-	border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;
-	margin-bottom: 20px;
+    background-color: #747C48;
+    padding: 5px 20px 10px 20px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-bottom: 20px;
 }
 
 h1 {
-	font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 header h1 {
-	font-size: 32px;
-	text-shadow: 0px 0px 8px white;
+    font-size: 32px;
+    text-shadow: 0px 0px 8px white;
 }
 
 main h1 {
-	font-size: 28px;
-	text-shadow: 2px 2px white;
+    font-size: 28px;
+    text-shadow: 2px 2px white;
 }
 
 h2 {
-	font-size: 20px;
-	color: #DFE0A8;
-	text-indent: 10px;
-	text-decoration: underline; 
-	position: relative;
-	bottom: 10px;
+    font-size: 20px;
+    color: #DFE0A8;
+    text-indent: 10px;
+    text-decoration: underline;
+    position: relative;
+    bottom: 10px;
 }
 
 p {
-	text-shadow: 0px 0px 8px #CEBB52;
-	font-size: 22px;
-	font-family: 'Slabo 27px', serif;
+    text-shadow: 0px 0px 8px #CEBB52;
+    font-size: 22px;
+    font-family: 'Slabo 27px', serif;
 }
 
 header p {
-	color: white;
+    color: white;
 }
 
 fieldset {
     background-color: #CED3CD;
-	padding: 30px 20px;
+    padding: 30px 20px;
     border-radius: 3px;
     border-color: #005555;
-	/*
-    */
 }
 
-legend {
-	/*
-    */
-    
-}
+
+/* This sets our general view width */
 
 body {
     max-width: 90%;
@@ -183,9 +194,9 @@ body {
 }
 
 
+/* our nav zone utilizes flex to switch from a column to a row based on screen size */
 nav {
     padding-top: 15px;
-    /* text-align: center;*/
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -205,23 +216,24 @@ nav {
 }
 
 .nav-button {
-	background-color: #CED3CD;
+    background-color: #CED3CD;
 
-	transition: background-color .6s, color .3s;
+    transition: background-color .6s, color .3s;
 }
 
 .nav-button:hover {
-	background-color: red;
-	color: white;
+    background-color: red;
+    color: white;
 }
 
 footer {
-	font-size: 10px;
-	margin-top: 100px;
-	text-align: center;
+    font-size: 10px;
+    margin-top: 100px;
+    text-align: center;
 }
 
 
+/* our responsive components. frame width must be set manually because of oversized child */
 @media screen and (min-width: 600px) {
     #drag-zone-frame {
         width: 400px;
@@ -245,6 +257,7 @@ footer {
         width: 600px;
     }
 
+	/* our maximum width view has a fixed size */
     body {
         width: 650px;
     }
