@@ -1,10 +1,13 @@
 'use strict'
 
 const currentState = {
-    questionNum: 0,
-    playerAnswers: [],
-    correct: 0,
-    wrong: 0,
+    resetState: function() {
+
+        this.questionNum = 0;
+        this.playerAnswers = [2, 1, 2, 3, 2];
+        this.correct = 0;
+        this.wrong = 0;
+    },
     updateScore: function() {
 
         this.correct = this.wrong = 0;
@@ -19,6 +22,25 @@ const currentState = {
 
         }, this);
     }
+}
+
+
+const loseState = Object.create(currentState);
+loseState.resetState = function() {
+
+    this.questionNum = 0;
+    this.playerAnswers = [0, 0, 0, 0, 0];
+    this.correct = 0;
+    this.wrong = 0;
+}
+
+const winState = Object.create(currentState);
+winState.resetState = function() {
+
+    this.questionNum = 0;
+    this.playerAnswers = [2, 1, 2, 3, 2];
+    this.correct = 0;
+    this.wrong = 0;
 }
 
 
@@ -76,7 +98,7 @@ function _generateObstruction(left, top, imageUrl, alt) {
             `;
 }
 
-function _renderForm(index) {
+function _renderForm(c, index) {
 
     const q = QUESTIONS[index];
 
@@ -140,8 +162,8 @@ function _renderForm(index) {
                     </div>
                 </fieldset>
                 <nav role="navigation">
-                    <span class="nav-element">Correct: ${currentState.correct}</span>
-                    <span class="nav-element">Wrong: ${currentState.wrong}</span>
+                    <span class="nav-element">Correct: ${c.correct}</span>
+                    <span class="nav-element">Wrong: ${c.wrong}</span>
                     <input class="nav-element prev-button" role="button" type="button" value="Prev">
                     <input class="nav-element next-button" role="button" type="submit" value="Next">
                 </nav>
@@ -157,15 +179,11 @@ function _renderForm(index) {
     return true;
 }
 
-function _generateWinScreen() {
+function _returnWinScreenContent(c) {
 
 
-    $('#main-app').html($(`
-            
-            <form 
-                method="post"
-                id="main-form"
-                >
+    if (QUESTIONS.length === c.correct) {
+        return `
                 <fieldset>
                     <legend>
                         Nice
@@ -180,33 +198,92 @@ function _generateWinScreen() {
                         <div class="win-subgroup">
                             <img
                                 class="grail" 
-                                src="http://res.cloudinary.com/execool/image/upload/v1510143883/high-quality-income-stocks-the-holy-grail-for-investors_yqlmqp.png" 
-                                alt="The Holy Grail" 
+                                src="http://res.cloudinary.com/execool/image/upload/c_scale,h_200/v1510143883/quiz/high-quality-income-stocks-the-holy-grail-for-investors_yqlmqp.png" 
+                                alt="Its the Holy Grail! You now have eternal life I guess. Don't drop it down a ravine." 
                                 class="obstruct-img"
                                 >
-                            <p
-                                >
+                            <p>
                                 You Win!<br>
                                 Here it is!</p>
                         </div>
                     </div>
                 </fieldset>
+                `;
+    } else {
+
+        let wrongAnswers = [];
+
+        QUESTIONS.forEach((question, index) => {
+            if (!question.answers[c.playerAnswers[index]].isCorrect) {
+                wrongAnswers.push(question.title + ',');
+            }
+        });
+
+        console.log(wrongAnswers);
+
+        if (wrongAnswers.length > 1) wrongAnswers.splice(wrongAnswers.length - 1, 0, 'and');
+
+        return `
+                <fieldset>
+                    <legend>
+                        Too bad!
+                    </legend>
+                    <h1>
+                        You turned into a skeleton!
+                    </h1>
+                    <div 
+                        id="drag-zone-frame"
+                        class="win-condition"
+                        >
+                        <div class="win-subgroup">
+                            <img
+                                class="grail" 
+                                src="http://res.cloudinary.com/execool/image/upload/v1510200475/quiz/holy_grail_skeleton.jpg" 
+                                alt="You turned into a skeleton because you made the wrong choice. Sorry!" 
+                                class="obstruct-img"
+                                >
+                            <p>
+                                You Lose...<br>
+                                You got ${wrongAnswers.join(' ').slice(0, -1)} wrong.</p>
+                        </div>
+                    </div>
+                </fieldset>
+                `;
+    }
+}
+
+function _generateWinScreen(c) {
+
+
+    $('#main-app').html($(`
+            
+            <form 
+                method="post"
+                id="main-form"
+                >
+                ${_returnWinScreenContent(c)}
                 <nav role="navigation">
-                    <span class="nav-element">Correct: ${currentState.correct}</span>
-                    <span class="nav-element">Wrong: ${currentState.wrong}</span>
+                    <span class="nav-element">Correct: ${c.correct}</span>
+                    <span class="nav-element">Wrong: ${c.wrong}</span>
                     <input class="nav-element prev-button" role="button" type="button" value="" disabled>
-                    <input class="nav-element" role="button" type="submit" value="Reset?">
+                    <input class="nav-element reset" role="button" type="submit" value="Reset?">
                 </nav>
             </form>
         `));
 
-    $(".grail").draggable();
+    $('.grail').draggable();
+    $('.reset').click(function(event) {
+        event.preventDefault();
+
+        loadInitialState(c);
+    });
 }
 
-function loadInitialState() {
+function loadInitialState(c) {
 
-    _renderForm(0);
+    c.resetState();
 
+    _renderForm(c, 0);
 
 }
 
@@ -215,7 +292,7 @@ function handleNav(c) {
     $('#main-app').on('click', '.prev-button', () => {
         if (c.questionNum > 0) {
             c.questionNum--;
-            _renderForm(c.questionNum);
+            _renderForm(c, c.questionNum);
         }
     });
 
@@ -230,10 +307,10 @@ function handleNav(c) {
             c.updateScore();
             c.questionNum++;
 
-            if (QUESTIONS.length === c.correct) {
-                _generateWinScreen();
-            } else if (QUESTIONS.length !== c.playerAnswers.length) {
-                _renderForm(c.questionNum);
+            if (QUESTIONS.length === c.playerAnswers.length) {
+                _generateWinScreen(c);
+            } else {
+                _renderForm(c, c.questionNum);
             }
         }
 
@@ -242,9 +319,10 @@ function handleNav(c) {
 
 function handleQuiz() {
 
-    loadInitialState();
-    handleNav(currentState);
+    const state = loseState;
 
+    loadInitialState(state);
+    handleNav(state);
 
     return 0;
 }
