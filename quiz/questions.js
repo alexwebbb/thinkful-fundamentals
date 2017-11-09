@@ -42,7 +42,7 @@ const QUESTIONS = [{
             url: "http://res.cloudinary.com/execool/image/upload/v1510128481/quiz/building_PNG91.png",
             alt: "Perhaps there is an answer behind this building..."
         },
-        obstacleNum: 20
+        obstacleNum: 16
     },
     {
         ID: 1,
@@ -78,7 +78,7 @@ const QUESTIONS = [{
             }
         ],
         image: {
-            url: "http://res.cloudinary.com/execool/image/upload/v1510128481/quiz/book_PNG2119.png",
+            url: "http://res.cloudinary.com/execool/image/upload/c_pad,h_765,w_765/v1510128481/quiz/book_PNG2105.png",
             alt: "Perhaps there is an answer among these books..."
         },
         obstacleNum: 24
@@ -159,7 +159,7 @@ const QUESTIONS = [{
             url: "http://res.cloudinary.com/execool/image/upload/c_pad,h_592,w_592/v1510128481/quiz/christian_cross_PNG23030.png",
             alt: "Look at all these crosses. We should be safe here!"
         },
-        obstacleNum: 40
+        obstacleNum: 30
     },
     {
         ID: 3,
@@ -198,6 +198,6 @@ const QUESTIONS = [{
             url: "http://res.cloudinary.com/execool/image/upload/v1510128481/quiz/skeleton_PNG5552.png",
             alt: "Uh oh, its a skull. Hope there aren't any rats!"
         },
-        obstacleNum: 40
+        obstacleNum: 30
     }
 ];

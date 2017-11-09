@@ -4,7 +4,7 @@ const currentState = {
     resetState: function() {
 
         this.questionNum = 0;
-        this.playerAnswers = [2, 1, 2, 3, 2];
+        this.playerAnswers = [];
         this.correct = 0;
         this.wrong = 0;
     },
@@ -77,7 +77,7 @@ function _generateAnswer(a) {
             `;
 }
 
-function _generateObstruction(left, top, imageUrl, alt) {
+function _generateObstruction(left, top, imageUrl, alt = '', classes = '') {
     return `
             <div
                 style="position: absolute;"
@@ -88,10 +88,11 @@ function _generateObstruction(left, top, imageUrl, alt) {
                         left: ${left}px; 
                         top: ${top}px;"
                         >
-                    <img 
+                    <img
                         src="${imageUrl}" 
-                        alt="${alt}" 
-                        class="obstruct-img"
+                        alt="${alt}"
+                        title="${alt}" 
+                        class="obstruct-img ${classes}"
                         >
                 </figure>
             </div>
@@ -115,7 +116,9 @@ function _renderForm(c, index) {
             _generateObstruction(
                 answer.offset.left - 15,
                 answer.offset.top - 15,
-                q.image.url, q.image.alt));
+                q.image.url, 
+                q.image.alt,
+                'answer-obstruction'));
     });
 
 
@@ -127,7 +130,7 @@ function _renderForm(c, index) {
             _generateObstruction(
                 _getRandomRange(5, 760),
                 _getRandomRange(5, 350),
-                q.image.url, ''));
+                q.image.url));
     }
 
 
@@ -164,17 +167,17 @@ function _renderForm(c, index) {
                 <nav role="navigation">
                     <span class="nav-element">Correct: ${c.correct}</span>
                     <span class="nav-element">Wrong: ${c.wrong}</span>
-                    <input class="nav-element prev-button" role="button" type="button" value="Prev">
-                    <input class="nav-element next-button" role="button" type="submit" value="Next">
+                    <input class="nav-element prev-button nav-button" role="button" type="button" value="Prev">
+                    <input class="nav-element next-button nav-button" role="button" type="submit" value="Next">
                 </nav>
             </form>
         `));
 
-    // it is not possible to delegate plugins 
-    // jquery garbage collects dead listeners
-    // probably
+
     $("#drag-zone").draggable({ containment: "#drag-zone-parent", scroll: false });
     $(".obstruction").draggable({ containment: "#drag-zone", scroll: false });
+
+    $('.answer-obstruction').tooltip();
 
     return true;
 }
@@ -239,7 +242,8 @@ function _returnWinScreenContent(c) {
                             <img
                                 class="grail" 
                                 src="http://res.cloudinary.com/execool/image/upload/v1510200475/quiz/holy_grail_skeleton.jpg" 
-                                alt="You turned into a skeleton because you made the wrong choice. Sorry!" 
+                                alt="You turned into a skeleton because you made the wrong choice. Sorry!"
+                                title="You turned into a skeleton because you made the wrong choice. Sorry!"
                                 class="obstruct-img"
                                 >
                             <p>
@@ -266,12 +270,12 @@ function _generateWinScreen(c) {
                     <span class="nav-element">Correct: ${c.correct}</span>
                     <span class="nav-element">Wrong: ${c.wrong}</span>
                     <input class="nav-element prev-button" role="button" type="button" value="" disabled>
-                    <input class="nav-element reset" role="button" type="submit" value="Reset?">
+                    <input class="nav-element nav-button reset" role="button" type="submit" value="Reset?">
                 </nav>
             </form>
         `));
 
-    $('.grail').draggable();
+    $('.grail').draggable().tooltip();
     $('.reset').click(function(event) {
         event.preventDefault();
 
@@ -319,9 +323,10 @@ function handleNav(c) {
 
 function handleQuiz() {
 
-    const state = loseState;
+    const state = winState;
 
     loadInitialState(state);
+
     handleNav(state);
 
     return 0;
